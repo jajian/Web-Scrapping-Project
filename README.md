@@ -2,8 +2,8 @@
 Final Project For Advanced Python
 
 ## Authors
-- James Jian
-- Elmar Imanov
+- James Jian 🐵
+- Elmar Imanov 🐼
 
 ## Project Description
 
