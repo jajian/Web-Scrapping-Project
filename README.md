@@ -6,7 +6,7 @@ Final Project For Advanced Python
 - Elmar Imanov 🐼
 
 ## Project Description
-We will be utilizing Python and various libraries to obtain data from the IMDB website about the top 250 movies. We will
+We will be utilizing Python and various libraries to obtain data from the IMDb website about the top 250 movies. We will
 be using this data to gather information to better understand multiple trends and anomalies in cinema history. 
 
 ## Project Outline
@@ -16,7 +16,7 @@ some calculations to see trends. The second page will be utilized to illustrate 
 anomolies within the data. 
   
 ### Data Collection and Storage Plan 
-We will be collecting the data from the iMDB website with BeautifulSoup and we will be storing it as a spreadsheet
+We will be collecting the data from the IMDb website with BeautifulSoup and we will be storing it as a spreadsheet
 
 ### Data Analysis and Visualization Plan
 We utilize multiple libraies with python such as Numpy, Pandas, matplotlib and Seaborn in order to visualize the data as well as conduct analysis to find interesting things that would be hard to find otherwise 
