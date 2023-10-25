@@ -1,5 +1,4 @@
 # Web-Scraping-Project
-Final Project For Advanced Python
 
 ## Authors
 - James Jian 🐵
