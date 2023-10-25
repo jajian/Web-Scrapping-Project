@@ -8,3 +8,8 @@ Final Project For Advanced Python
 ## Project Description
 
 ## Project Outline
+- Interface plan
+
+- Data Collection and Storage Plan (written by Author #1)
+
+- Data Analysis and Visualization Plan
