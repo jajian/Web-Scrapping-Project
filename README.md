@@ -11,6 +11,7 @@ be using this data to gather information to better understand multiple trends an
 
 ## Project Outline
 - Interface plan
+  
   We will be using Python Flask to create a website with a modern design to include a home page along with information about the data and
   some calculations to see trends. The second page will be utilized to illustrate various data visualization plots and will demonstrate
   anomolies within the data. 
