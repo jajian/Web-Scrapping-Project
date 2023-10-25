@@ -15,7 +15,7 @@ We will be using Python Flask to create a website with a modern design to includ
 some calculations to see trends. The second page will be utilized to illustrate various data visualization plots and will demonstrate
 anomolies within the data. 
   
-### Data Collection and Storage Plan (written by Author #1)
+### Data Collection and Storage Plan 
 We will be collecting the data from the iMDB website with BeautifulSoup and we will be storing it as a spreadsheet
 
 ### Data Analysis and Visualization Plan
