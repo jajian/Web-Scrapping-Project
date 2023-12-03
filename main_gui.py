@@ -50,8 +50,14 @@ with open(file_path, 'w', newline='') as csvfile:
 
 app = Flask(__name__)
 
+@app.route("/")
+def main_display():
+    return render_template('index.html')
 
 
+@app.route("/visual")
+def visual_display():
+    return render_template('visual.html')
 
 if __name__ =='__main__':
     app.run()
