@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import os
+from flask import Flask
+from flask import render_template
+from flask import request
+
 
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
@@ -40,3 +44,14 @@ with open(file_path, 'w', newline='') as csvfile:
 
     csv_writer = csv.writer(csvfile)
     csv_writer.writerows(data)
+
+
+
+
+app = Flask(__name__)
+
+
+
+
+if __name__ =='__main__':
+    app.run()
