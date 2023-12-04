@@ -5,6 +5,14 @@ import os
 from flask import Flask
 from flask import render_template
 from flask import request
+import pandas as pd
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from io import BytesIO
+import base64
+
 
 
 # Scraping IMDb website and creating CSV file with the data
@@ -50,13 +58,16 @@ with open(file_path, 'w', newline='') as csvfile:
 
 app = Flask(__name__)
 
+@app.route("/home")
 @app.route("/")
 def main_display():
     return render_template('index.html')
 
-
 @app.route("/visual")
 def visual_display():
+    columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
+    movies_df = pd.read_csv('IMDb.csv', names=columns)
+
     return render_template('visual.html')
 
 if __name__ =='__main__':
