@@ -14,6 +14,7 @@ from io import BytesIO
 import base64
 
 
+y = 1
 
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
