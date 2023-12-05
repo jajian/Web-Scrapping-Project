@@ -2,18 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import os
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, send_file, request, render_template
 import pandas as pd
 import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-from io import BytesIO
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import io 
 import base64
-
-
+import seaborn as sns
 
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
@@ -21,6 +18,8 @@ headers = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
 }
 response = requests.get(url, headers = headers)
+
+
 
 soup = BeautifulSoup(response.content, "html.parser")
 movies = soup.find('ul', class_='ipc-metadata-list ipc-metadata-list--dividers-between sc-9d2f6de0-0 iMNUXk compact-list-view ipc-metadata-list--base')
@@ -52,8 +51,6 @@ with open(file_path, 'w', newline='') as csvfile:
     csv_writer.writerows(data)
 
 
-
-
 app = Flask(__name__)
 
 @app.route("/home")
@@ -61,8 +58,10 @@ app = Flask(__name__)
 def main_display():
     return render_template('index.html')
 
-@app.route("/visual")
+
+@app.route("/visual_display")
 def visual_display():
+    matplotlib.pyplot.switch_backend('Agg') 
     columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
     movies_df = pd.read_csv('IMDb.csv', names=columns)
 
