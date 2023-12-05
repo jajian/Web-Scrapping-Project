@@ -22,8 +22,6 @@ headers = {
 }
 response = requests.get(url, headers = headers)
 
-
-
 soup = BeautifulSoup(response.content, "html.parser")
 movies = soup.find('ul', class_='ipc-metadata-list ipc-metadata-list--dividers-between sc-9d2f6de0-0 iMNUXk compact-list-view ipc-metadata-list--base')
 
