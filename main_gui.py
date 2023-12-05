@@ -58,9 +58,7 @@ def main_display():
 
 @app.route("/visual_display")
 def visual_display():
-    matplotlib.pyplot.switch_backend('Agg') 
-    columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
-    movies_df = pd.read_csv('IMDb.csv', names=columns)
+    # columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
 
     return render_template('visual.html')
 
