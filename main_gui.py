@@ -11,10 +11,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import io 
 import base64
 
-
-y = 1
-import seaborn as sns
-
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
 headers = {
