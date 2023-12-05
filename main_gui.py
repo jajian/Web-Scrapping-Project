@@ -53,7 +53,7 @@ data_sorted_by_date = sorted(data, key=lambda x: x[2], reverse=True)
 
 # Assigning column names and reading in the data as a pandas dataframe
 columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
-movies_df = pd.read_csv('IMDb.csv', names=columns) 
+movies_df = pd.read_csv('IMDb.csv', names=columns, encoding='latin-1') 
 
 #Scatter plot 
 def create_plot(): 
