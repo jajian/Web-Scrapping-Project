@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import os
-from flask import Flask, send_file, request, render_template
+from flask import Flask, request, render_template
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
@@ -10,7 +10,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from io import BytesIO
 import base64
-import math
+
 
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
@@ -115,14 +115,20 @@ def create_bar(rating_category):
 
 app = Flask(__name__)
 
+sort_by = {
+    'Ranking' : data,
+    'Date' : data_sorted_by_date
+}
+
 #Home page
 @app.route("/home", methods=['GET', 'POST'])
 @app.route("/")
 def main_display():
-
     display_table = request.method == 'POST'
-    # selected_list = request.form.get('sort_by', )
-    return render_template('index.html', data=data, display_table=display_table)
+    selected_option = request.form.get('sort_by','Ranking')
+    current_option = sort_by[selected_option]
+    print(current_option)
+    return render_template('index.html', sort_by=sort_by, selected_option=selected_option, current_option=current_option, display_table=display_table)
 
 #Visaul page
 @app.route("/visual_display", methods=['GET', 'POST'])

@@ -18,7 +18,7 @@
       background-color: #3e3e3e;
     }
     table {
-            border-collapse: collapse;
+        border-collapse: collapse;
             width: 50%;
             margin: 20px;
         }
@@ -29,14 +29,16 @@
             padding: 10px;
             text-align: center;
         }
+
     button {
+        margin-top: 30px;
         color: #000000;
         background-color: #f5de50;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      transition: opacity 0.3s;
-      cursor: pointer;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        transition: opacity 0.3s;
+        cursor: pointer;
     }
     button:hover {
       opacity: 0.6;
@@ -72,6 +74,12 @@
         color: #fff;
         text-align: center;
     }
+    option {
+        color:#000000;
+    }
+    select {
+        color:#000000
+    }
       </style>
 </head>
 <body>
@@ -80,8 +88,14 @@
         <h1 class="title">Top 250 IMDb Movies</h1>
         <a href="visual_display">Visual Page</a>
     </nav>
-    <h1>MAIN PAGE</h1>
+  
     <form method="post" action="/home">
+        <label for="sort_by">Sort By</label>
+        <select id="sort_by" name="sort_by">
+            {% for key, value in sort_by.items() %}
+                <option value="{{ key }}" {% if key == selected_option %}selected{% endif %}>{{ key }}</option> 
+            {% endfor %}
+        </select>
         <button type="submit" name="Show Table">Show Movies</button>
     </form>
     {% if display_table %}
@@ -97,7 +111,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for row in data %}
+                {% for row in current_option %}
                     <tr>
                         {% for value in row %}
                             <td>{{ value }}</td>
