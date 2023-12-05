@@ -25,8 +25,9 @@
       justify-content: space-between;
       align-items: center;
     }
-    nav a {
+    nav a, input {
       color: #000000;
+      font-size: 15px;
       text-decoration: none;
       margin-right: 20px;
       margin-left: 20px;
@@ -35,17 +36,32 @@
       border: none;
       border-radius: 8px;
       transition: opacity 0.3s;
+      cursor: pointer;
     }
     nav a:hover {
+      opacity: 0.6;
+    }
+    input:hover {
       opacity: 0.6;
     }
     .title {
       font-size: 2.5em;
       margin: 0;
-
     }
     h1 {
+        font-weight: bold;
         color: #fff;
+        text-align: center;
+    }
+    label{
+      color:#fff;
+    }
+    select {
+      padding: 15px 20px;
+      margin-bottom: 20px;
+    }
+    div{
+      text-align: center;
     }
       </style>
 </head>
@@ -55,6 +71,37 @@
         <h1 class="title">Top 250 IMDb Movies</h1>
         <a href="visual_display">Visual Page</a>
     </nav>
-    <h1>Visualizations stuff goes here</h1>
+    <div class="plot-1">
+      <h1>IMDb Ratings Over the Years</h1>
+      <img src="data:image/png;base64,{{ plot_url }}" alt="Plot">
+    </div>
+    <div class="plot-2">
+      <h1>Distribution of Movie Ratings Pie Chart</h1>
+      <img src="data:image/png;base64,{{ plot2_url }}" alt="Plot">
+    </div>
+
+    <div>
+      <h1>Top Ten Movies by Rating Catagory</h1>
+      <form method="POST">
+        <label for="rating_category">Select a Rating Category:</label>
+        <select name="rating_category" id="rating_category">
+            <option value="R" {% if default_category == 'R' %} selected {% endif %}>Rated R</option>
+            <option value="PG-13" {% if default_category == 'PG-13' %} selected {% endif %}>Rated PG-13</option>
+            <option value="Approved" {% if default_category == 'Approved' %} selected {% endif %}>Rated Approved</option>
+            <option value="PG" {% if default_category == 'PG' %} selected {% endif %}>Rated PG</option>
+            <option value="Not Rated" {% if default_category == ' Not Rated' %} selected {% endif %}>Rated Not Rated</option>
+            <option value="G" {% if default_category == ' G' %} selected {% endif %}>Rated G</option>
+            <option value="Passed" {% if default_category == ' Passed' %} selected {% endif %}>Rated Passed</option>
+            <option value="TV-PG" {% if default_category == ' TV-PG' %} selected {% endif %}>Rated TV-PG</option>
+            <option value="X" {% if default_category == ' X' %} selected {% endif %}>Rated X</option>
+          </select>
+        <input type="submit" value="Show Top 10">
+    </form>
+
+    {% if plot_url %}
+        <img src="data:image/png;base64,{{ plot3_url }}" alt="Top Ten Rated Movies">
+    {% endif %}
+    </div>
+  
 </body>
 </html>

@@ -8,8 +8,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-import io 
+from io import BytesIO
 import base64
+import math
 
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
@@ -50,9 +51,71 @@ with open(file_path, 'w', newline='') as csvfile:
 data_sorted_by_date = sorted(data, key=lambda x: x[2], reverse=True)
 
 
+# Assigning column names and reading in the data as a pandas dataframe
+columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
+movies_df = pd.read_csv('IMDb.csv', names=columns) 
+
+#Scatter plot 
+def create_plot(): 
+    year_rating = movies_df[['Year', 'Rating']]
+
+    plt.figure(figsize=(10, 8))
+    plt.scatter(year_rating['Year'], year_rating['Rating'], color='yellow')
+    plt.xlabel('Year')
+    plt.ylabel('Rating')
+    plt.gca().set_facecolor('lightgray')
+    plt.gci().set_facecolor('black')
+    plt.gcf().set_facecolor('lightgray')
+    plt.grid(True)
+    plt.tight_layout()
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plot_url = base64.b64encode(img.getvalue()).decode()
+
+    return plot_url
+
+#Pie chart plot
+def create_pie():
+    rated_counts = movies_df['Rated'].value_counts()
+
+    plt.figure(figsize=(10, 8))
+    plt.pie(rated_counts, labels=rated_counts.index, autopct='%1.1f%%', startangle=140)
+    plt.axis('equal')
+    plt.gcf().set_facecolor('lightgray')
+    plt.tight_layout()
+
+    img2 = BytesIO()
+    plt.savefig(img2, format='png')
+    img2.seek(0)
+    plot2_url = base64.b64encode(img2.getvalue()).decode()
+
+    return plot2_url
+
+def create_bar(rating_category):
+    filtered_data = movies_df[movies_df['Rated'] == rating_category]
+
+    top_ten_movies = filtered_data.nlargest(10, 'Rating')
+
+    plt.figure(figsize=(10, 6))
+    plt.barh(top_ten_movies['Title'], top_ten_movies['Rating'], color='yellow')
+    plt.gca().set_facecolor('lightgray')
+    plt.gcf().set_facecolor('lightgray')
+    plt.xlabel('Rating')
+    plt.xlim(7.5, 9.4)
+    plt.tight_layout()
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plot3_url = base64.b64encode(img.getvalue()).decode()
+
+    return plot3_url
 
 app = Flask(__name__)
 
+#Home page
 @app.route("/home", methods=['GET', 'POST'])
 @app.route("/")
 def main_display():
@@ -61,12 +124,23 @@ def main_display():
     # selected_list = request.form.get('sort_by', )
     return render_template('index.html', data=data, display_table=display_table)
 
-
-@app.route("/visual_display")
+#Visaul page
+@app.route("/visual_display", methods=['GET', 'POST'])
 def visual_display():
-    # columns = ['Rank', 'Title', 'Year', 'Runtime', 'Rated', 'Rating']
+    # Fixes issues with displaying
+    matplotlib.pyplot.switch_backend('Agg') 
+    #creating the plots
+    default_category = 'R'
+    plot_url = create_plot()
+    plot2_url = create_pie()
 
-    return render_template('visual.html')
+    if request.method == 'POST':
+        selected_category = request.form['rating_category']
+        plot3_url = create_bar(selected_category)
+        return render_template('visual.html', plot_url=plot_url, plot2_url=plot2_url, plot3_url=plot3_url, default_category=selected_category)
+    else:
+        plot3_url = create_bar(default_category)
+        return render_template('visual.html', plot_url=plot_url, plot2_url=plot2_url, plot3_url=plot3_url, default_category=default_category)
 
 if __name__ =='__main__':
     app.run()
