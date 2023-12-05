@@ -9,12 +9,37 @@
     <title>Document</title>
     <style>
         * {
+            color: #fff;
            font-family: Roboto Mono
         }
     body {
       margin: 0;
       padding: 0;
       background-color: #3e3e3e;
+    }
+    table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    button {
+        color: #000000;
+        background-color: #f5de50;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.6;
     }
     nav {
       background-color: #232323;
@@ -56,6 +81,32 @@
         <a href="visual_display">Visual Page</a>
     </nav>
     <h1>MAIN PAGE</h1>
-    
+    <form method="post" action="/home">
+        <button type="submit" name="Show Table">Show Movies</button>
+    </form>
+    {% if display_table %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Length</th>
+                    <th>Rated</th>
+                    <th>IMDb Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
 </body>
 </html>

@@ -14,7 +14,7 @@ import base64
 # Scraping IMDb website and creating CSV file with the data
 url = 'https://www.imdb.com/chart/top/'
 headers = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
 }
 response = requests.get(url, headers = headers)
 
@@ -47,13 +47,19 @@ with open(file_path, 'w', newline='') as csvfile:
     csv_writer = csv.writer(csvfile)
     csv_writer.writerows(data)
 
+data_sorted_by_date = sorted(data, key=lambda x: x[2], reverse=True)
+
+
 
 app = Flask(__name__)
 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 @app.route("/")
 def main_display():
-    return render_template('index.html')
+
+    display_table = request.method == 'POST'
+    # selected_list = request.form.get('sort_by', )
+    return render_template('index.html', data=data, display_table=display_table)
 
 
 @app.route("/visual_display")
