@@ -1,4 +1,4 @@
-# Web-Scraping-Project
+# IMDb Dashboard
 
 ## Authors
 - James Jian 🐵
