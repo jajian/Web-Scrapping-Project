@@ -5,7 +5,7 @@
 - Elmar Imanov 🐼
 
 ## Project Description
-We utilizee Python and various libraries to obtain data from the IMDb website about the top 250 movies. We use 
+We utilize Python and various libraries to obtain data from the IMDb website about the top 250 movies. We use 
 this data to gather information to better understand multiple trends and anomalies in cinema history. 
 
 ## Project Outline
